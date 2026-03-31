@@ -38,4 +38,5 @@ export const bundle = async (config: ConfigInterface) => {
     target: "esnext",
     minify,
   });
+  fs.rmdirSync(tempDir);
 };
