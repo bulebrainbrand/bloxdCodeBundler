@@ -3,15 +3,22 @@ import type { ConfigInterface } from "./config.types.js";
 export const checkValidConfig = (
   config: object,
 ): config is Partial<ConfigInterface> => {
-  const validInterface: Record<string, "string" | "boolean"> = {
+  const validInterface: Record<keyof ConfigInterface, "string" | "boolean"> = {
     rootDir: "string",
     outDir: "string",
     worldcodeDir: "string",
     minify: "boolean",
+    codeblockDir: "string",
+  } as const;
+  const validKeys = Object.keys(
+    validInterface,
+  ) as unknown as keyof ConfigInterface;
+  const checkValidKey = (str: string): str is typeof validKeys => {
+    return validKeys.includes(str);
   };
   const configEntries = Object.entries(config);
   for (const [key, value] of configEntries) {
-    if (validInterface[key] == null) {
+    if (!checkValidKey(key)) {
       console.error(`unexpected key: ${key}`);
       process.exit(1);
     }

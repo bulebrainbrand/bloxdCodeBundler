@@ -8,6 +8,7 @@ export const bundle = async (config: ConfigInterface) => {
     rootDir: inputRootDir,
     outDir: outputDir,
     worldcodeDir: configWorldcodeDir,
+    codeblockDir: configCodeblockDir,
     minify,
   } = config;
   const rootDir = process.cwd();
@@ -16,6 +17,7 @@ export const bundle = async (config: ConfigInterface) => {
   const srcPath = path.resolve(rootDir, inputRootDir);
   // copy to temp
   fs.cpSync(srcPath, tempDir, { recursive: true });
+  // worldcode
   const worldcodePath = path.resolve(tempDir, configWorldcodeDir);
   const allWorldcodeFiles = fs
     .readdirSync(worldcodePath)
@@ -37,6 +39,21 @@ export const bundle = async (config: ConfigInterface) => {
     format: "iife",
     target: "esnext",
     minify,
+  });
+  // codeblock
+  const codeblockPath = path.resolve(tempDir, configCodeblockDir);
+  const allCodeBlockFilePath = fs
+    .readdirSync(codeblockPath)
+    .filter((filename) => filename.endsWith("js"))
+    .map((filename) => path.join(codeblockPath, filename));
+  await esbuild.build({
+    entryPoints: allCodeBlockFilePath,
+    bundle: true,
+    outdir: outputPath,
+    minify,
+    platform: "neutral",
+    format: "iife",
+    target: "esnext",
   });
   fs.rmSync(tempDir, { recursive: true, force: true });
 };
