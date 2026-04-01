@@ -26,7 +26,11 @@ export const bundle = async (config: ConfigInterface) => {
   const worldcodeImportText = allWorldcodeFiles
     .map((name) => `import "${name}";`)
     .join("\n");
-  const worldcodeOutputPath = path.resolve(outputPath, "worldcode.js");
+  const worldcodeOutputPath = path.resolve(
+    outputPath,
+    configWorldcodeDir,
+    "worldcode.js",
+  );
   await esbuild.build({
     stdin: {
       contents: worldcodeImportText,
@@ -49,7 +53,7 @@ export const bundle = async (config: ConfigInterface) => {
   await esbuild.build({
     entryPoints: allCodeBlockFilePath,
     bundle: true,
-    outdir: outputPath,
+    outdir: path.resolve(outputPath, codeblockPath),
     minify,
     platform: "neutral",
     format: "iife",
