@@ -4,7 +4,7 @@ export const getConfig = async () => {
     const defaultConfig = {
         rootDir: "./src",
         outDir: "./dist",
-        worldcodeDir: "./src/worldcode",
+        worldcodeDir: "./worldcode",
         minify: true,
     };
     const configInput = await loadConfog();

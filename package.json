@@ -14,13 +14,14 @@
     "esbuild": "^0.27.4"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "bin/"
   ],
   "devDependencies": {
     "@types/node": "^25.5.0",
     "typescript": "^6.0.2"
   },
   "bin": {
-    "bloxdBuild": "./index.js"
+    "bloxdBuild": "./bin/cli.js"
   }
 }

@@ -15,7 +15,7 @@ export const bundle = async (config: ConfigInterface) => {
   const tempDir = path.resolve(outputPath, ".temp");
   const srcPath = path.resolve(rootDir, inputRootDir);
   // copy to temp
-  fs.cpSync(srcPath, tempDir);
+  fs.cpSync(srcPath, tempDir, { recursive: true });
   const worldcodePath = path.resolve(tempDir, configWorldcodeDir);
   const allWorldcodeFiles = fs
     .readdirSync(worldcodePath)
@@ -38,5 +38,5 @@ export const bundle = async (config: ConfigInterface) => {
     target: "esnext",
     minify,
   });
-  fs.rmdirSync(tempDir);
+  fs.rmSync(tempDir, { recursive: true, force: true });
 };
