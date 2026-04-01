@@ -37,7 +37,7 @@ export const bundle = async (config) => {
     const allCodeBlockFilePath = fs
         .readdirSync(codeblockPath)
         .filter((filename) => filename.endsWith("js"))
-        .map((filename) => path.join(codeblockPath, filename));
+        .map((filename) => path.join(tempDir, codeblockPath, filename));
     await esbuild.build({
         entryPoints: allCodeBlockFilePath,
         bundle: true,
