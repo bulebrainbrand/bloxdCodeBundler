@@ -6,6 +6,7 @@ export const getConfig = async () => {
         outDir: "./dist",
         worldcodeDir: "./worldcode",
         minify: true,
+        codeblockDir: "./codeblock",
     };
     const configInput = await loadConfog();
     if (configInput == null)

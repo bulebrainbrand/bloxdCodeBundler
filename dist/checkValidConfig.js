@@ -4,10 +4,15 @@ export const checkValidConfig = (config) => {
         outDir: "string",
         worldcodeDir: "string",
         minify: "boolean",
+        codeblockDir: "string",
+    };
+    const validKeys = Object.keys(validInterface);
+    const checkValidKey = (str) => {
+        return validKeys.includes(str);
     };
     const configEntries = Object.entries(config);
     for (const [key, value] of configEntries) {
-        if (validInterface[key] == null) {
+        if (!checkValidKey(key)) {
             console.error(`unexpected key: ${key}`);
             process.exit(1);
         }

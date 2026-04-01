@@ -3,4 +3,5 @@ export interface ConfigInterface {
     outDir: string;
     worldcodeDir: string;
     minify: boolean;
+    codeblockDir: string;
 }
